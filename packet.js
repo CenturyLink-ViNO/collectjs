@@ -59,9 +59,9 @@ exports.create = function(options) {
         packet: function(params) {
             var b = _prepare();
             writeString(2, params.plugin, b);
-            writeString(3, params.pluginInstance, b);
+            writeString(3, params.pluginInstance || '', b);
             writeString(4, params.type, b);
-            writeString(5, params.typeInstance, b);
+            writeString(5, params.typeInstance || '', b);
 
             writeValues(params.values, b);
             return b.buffer();
