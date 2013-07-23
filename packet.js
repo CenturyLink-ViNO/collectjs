@@ -21,7 +21,7 @@ function writeNumber(type, number, put) {
 
 function writeValues(array, put) {
     put.word16be(6);
-    put.word16be(4+2+(array.length * 16));
+    put.word16be(4+2+(array.length * 9));
     put.word16be(array.length); //Number of values
 
     // Write types
@@ -30,32 +30,28 @@ function writeValues(array, put) {
     });
     // Write values
     array.forEach(function(value) {
-        // @TODO: Fix for different value types
-        put.put(bignum(value.value).toBuffer({size: 8}));
+        switch (value.type) {
+            case 0:
+                put.put(bignum(value.value).toBuffer({endian: 'big', size: 8}));
+                break;
+            case 1:
+                var _doubleBuffer = new Buffer(8);
+                _doubleBuffer.writeDoubleLE(value.value, 0);
+                put.put(_doubleBuffer);
+                break;
+        }
+        //console.log(put.buffer().slice(put.buffer().length-(4+2+(array.length * 9))).toJSON());
     });
 }
-
-/*
-writeString(0, 'testing', p);
-writeNumber(1, new Date().getTime()/1000, p);
-
-writeString(2, 'testPlugin', p);
-writeString(3, 'testPluginInstance', p);
-writeString(4, 'testType', p);
-writeString(5, 'testTypeInstance', p);
-writeNumber(7, 10, p);
-
-writeValues([{type:0, value: 100}], p);
-*/
-
 
 exports.create = function(options) {
     _host = options.host;
     _interval = options._interval || 10;
     var _prepare = function() {
+        _now = new Date().getTime()/1000 |0;
         var buffer = new Put();
         writeString(0, _host, buffer);
-        writeNumber(1, new Date().getTime()/1000, buffer);
+        writeNumber(1, _now, buffer);
         writeNumber(7, _interval, buffer);
         return buffer;
     };

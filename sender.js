@@ -9,11 +9,11 @@ var bridge = Bridge.create({
 var packet = bridge.packet({
     plugin: 'Test',
     pluginInstance: '1',
-    type: 'test',
-    typeInstance: 'test',
+    type: 'percent',
+    typeInstance: 'Test',
     values: [
         {
-            type: 0, value: 42
+            type: 1, value: 42
         }
     ]
 });
@@ -24,7 +24,6 @@ console.log(message);
 
 var client = dgram.createSocket("udp4");
 client.send(message, 0, message.length, 25826, "deneb.yarekt.co.uk", function(err, bytes) {
-    console.log(err);
-    console.log(bytes);
+//client.send(message, 0, message.length, 25827, "localhost", function(err, bytes) {
     client.close();
 });
