@@ -40,7 +40,6 @@ function writeValues(array, put) {
                 put.put(_doubleBuffer);
                 break;
         }
-        //console.log(put.buffer().slice(put.buffer().length-(4+2+(array.length * 9))).toJSON());
     });
 }
 
