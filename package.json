@@ -1,6 +1,6 @@
 {
   "name": "collectjs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Collectd's binary wire protocol implementation in NodeJS",
   "main": "packet.js",
   "dependencies": {
