@@ -47,7 +47,10 @@ exports.create = function(options) {
     _host = options.host;
     _interval = options._interval || 10;
     var _prepare = function() {
-        _now = new Date().getTime()/1000 |0;
+        _now = new Date().getTime()/1000 | 0;
+        if (options.time !== undefined) {
+            _now =  new Date(options.time).getTime()/1000 | 0;
+        }
         var buffer = new Put();
         writeString(0, _host, buffer);
         writeNumber(1, _now, buffer);

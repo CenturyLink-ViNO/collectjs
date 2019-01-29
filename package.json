@@ -1,11 +1,11 @@
 {
   "name": "collectjs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Collectd's binary wire protocol implementation in NodeJS",
   "main": "packet.js",
-  "dependencies" : {
-    "put": "*",
-    "bignum": "*"
+  "dependencies": {
+    "put": "0.0.6",
+    "bignum": "0.13.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
